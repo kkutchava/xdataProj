@@ -29,6 +29,9 @@ class Filterwords(models.Model):
     class Meta:
         managed = False
         db_table = 'filterwords'
+    
+    def __str__(self):
+        return self.word
 
 
 class Notifications(models.Model):
@@ -52,11 +55,14 @@ class Sites(models.Model):
     class Meta:
         managed = False
         db_table = 'sites'
+    
+    def __str__(self):
+        return self.sitename
 
 
 class Articles(models.Model):
-    site = models.ForeignKey('Sites', models.DO_NOTHING)
-    clientid = models.ForeignKey('Clients', models.DO_NOTHING, db_column='clientid')
+    site = models.ForeignKey('Sites', models.CASCADE) #cascade since if site is deleted article will be deleted too
+    clientid = models.ForeignKey('Clients', models.DO_NOTHING, db_column='clientid') 
     insert_date = models.DateTimeField()
     article_date = models.DateTimeField()
     autor = models.CharField(max_length=128, blank=True, null=True)

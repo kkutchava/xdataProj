@@ -1,0 +1,26 @@
+{% extends "xdata/base.html" %}
+
+{% block content %}
+<h1>Articles List</h1>
+<br>
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Name</td>
+            <td>Text</td>
+            <td>Visited Count</td>
+            <td>Top</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for article in articles_list %}
+            <tr>
+                <td>{{ article.article_name }}</td>
+                <td>{{ article.article_text }}</td>
+                <td>{{ article.visitors_count }}</td>
+                <td>{{ article.is_top_article }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

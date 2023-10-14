@@ -1,0 +1,37 @@
+{% extends  "xdata/base.html"%}
+
+{% block content %}
+<h1>Articles List</h1>
+<br>
+<form class="form-inline my-2 my-lg-0" method="get" action="{% url 'search_articles' %}">
+    {% csrf_token %}
+    <div class="input-group">
+        <input class="form-control mr-sm-2" type="text" name="clientid" placeholder="Enter Client ID" aria-label="Search">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </div>
+</form>
+
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Name</td>
+            <td>Text</td>
+            <td>Visited Count</td>
+            <td>Top</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for article in articles_list %}
+            <tr>
+                <td>{{ article.article_name }}</td>
+                <td>{{ article.article_text }}</td>
+                <td>{{ article.visitors_count }}</td>
+                <td>{{ article.is_top_artikle }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

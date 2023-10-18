@@ -45,3 +45,52 @@ class ClientsForm(forms.ModelForm):
 
         self.fields['filterwordsid'].empty_label = 'Choose'
         self.fields['siteid'].empty_label = 'Choose'
+
+
+class NotificationsForm(forms.ModelForm):
+    class Meta:
+        model = Notifications
+        fields = ['sms', 'telegram', 'whatsapp', 'email', 'comment']
+        labels = {
+            'sms': 'SMS',
+            'telegram': 'Telegram',
+            'whatsapp': 'WhatsApp',
+            'email': 'Email',
+            'comment': 'Comment'
+        }
+
+    def save(self, commit=True, client=None):
+        notification = super(NotificationsForm, self).save(commit=False)
+        
+        # Here, you can set fields based on the associated client
+        if client:
+            notification.clientid = client.id
+        
+        if commit:
+            notification.save()
+
+        return notification
+    
+
+class FilterwordsForm(forms.ModelForm):
+    class Meta:
+        model = Filterwords
+        fields = ['word', 'wordalias', 'subwordalias', 'stopword']
+        labels = {
+            'word': 'Word',
+            'wordalias': 'Word Alias',
+            'subwordalias': 'Sub-word Alias',
+            'stopword': 'Stop-Word',
+        }
+
+    def save(self, commit=True, client=None):
+        Filterword = super(FilterwordsForm, self).save(commit=False)
+        
+        # set fields based on the associated client
+        if client:
+            Filterword.clientid = client.id
+        
+        if commit:
+            Filterword.save()
+
+        return Filterword

@@ -1,0 +1,50 @@
+{% extends  "xdata/base.html"%}
+
+{% block content %}
+    <h1>Notifications List</h1>
+    <br>
+    {% if notifications_list %}
+        <!-- Display notifications for the client -->
+        <table class="table table-borderless">
+            <thead class="border-bottom font-weight-bold">
+                <tr>
+                    <td>SMS</td>
+                    <td>Telegram</td>
+                    <td>WhatsUpp</td>
+                    <td>Email</td>
+                    <td>Comment</td>
+                    <td>
+                    </td>
+                    <td>
+                        <a href="{% url 'notifications_insert' clientid %}"class="btn btn-outline-success"><i class="fas fa-plus"> Add Notification </i></a>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for notification in notifications_list %}
+                    <tr>
+                        <td>{{ notification.sms }}</td>
+                        <td>{{ notification.telegram }}</td>
+                        <td>{{ notification.whatsapp }}</td>
+                        <td>{{ notification.email }}</td>
+                        <td>{{ notification.comment }}</td>
+                        <td>
+                            <form action="{% url 'notifications_delete' notification.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn"><i class="far fa-trash-alt fa-lg text-danger float-right"></i></button>
+                            </form>
+                            <a href="{% url 'notifications_update' notification.id %}" class="btn text-secondary px-0">
+                                <i class="far fa-edit fa-lg"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <!-- No notifications for the client -->
+        <a href="{% url 'notifications_insert' clientid %}"class="btn btn-outline-success"><i class="fas fa-plus"> Add Notification </i></a>
+        <br>
+        <p>Notification with client ID {{ clientid }} does not exist.</p>
+        {% endif %}
+{% endblock content %}

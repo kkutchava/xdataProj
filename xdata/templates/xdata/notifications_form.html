@@ -5,15 +5,16 @@
 
 <form action="" method="post" autocomplete="off">
     {% csrf_token %} <!-- for the protection -->
-    {{form.username|as_crispy_field}}
     <div class="row">
-        <div class="col-md-6">{{form.siteid|as_crispy_field}}</div>
-        <div class="col-md-6">{{form.filterwordsid|as_crispy_field}}</div>
+        <div class="col-md-6">{{form.sms|as_crispy_field}}</div>
+        <div class="col-md-6">{{form.telegram|as_crispy_field}}</div>
     </div>
-    {{form.tts_enabled|as_crispy_field}} 
+    {{form.whatsapp|as_crispy_field}} 
+    {{form.email|as_crispy_field}} 
+    {{form.comment|as_crispy_field}} 
     <div class="row">
       <div class="col-md-6"><button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-save"></i> Submit</button></div>
-      <div class="col-md-6"><a href="{% url 'clients_read' %}" class="btn btn-secondary btn-block btn-lg"><i class="fas fa-stream"> Back to list</i></a></div>
+      <div class="col-md-6"><a href="{% url 'notifications_read' %}" class="btn btn-secondary btn-block btn-lg"><i class="fas fa-stream"> Back to list</i></a></div>
     </div>
     
 </form>

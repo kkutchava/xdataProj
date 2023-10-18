@@ -29,11 +29,11 @@
                         {% csrf_token %}
                         <button type="submit" class="btn"><i class="far fa-trash-alt fa-lg text-danger float-right"></i></button>
                     </form>
-                    <a href="#" class="btn text-secondary px-0">
+                    <a href="{% url 'notifications_read_id' client.id %}" class="btn text-secondary px-0">
                         <i class="far fa-envelope fa-lg"></i>
                         
                     </a>&nbsp
-                    <a href="#" class="btn text-secondary px-0">
+                    <a href="{% url 'filterwords_read_id' client.id%}" class="btn text-secondary px-0">
                         <i class="fas fa-filter fa-lg"></i>
                     </a>
                 </td>

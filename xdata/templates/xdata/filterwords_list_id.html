@@ -1,0 +1,46 @@
+{% extends  "xdata/base.html"%}
+
+{% block content %}
+    <h1>Filter Words List</h1>
+    <br>
+    {% if filterwords_list %}
+        <!-- Display filterwords for the client -->
+        <table class="table table-borderless">
+            <thead class="border-bottom font-weight-bold">
+                <tr>
+                    <td>Word</td>
+                    <td>Word Alias</td>
+                    <td>Sub-Word Alias</td>
+                    <td>Stop Word</td>
+                    <td>
+                        <a href="{% url 'filterwords_insert' clientid %}"class="btn btn-outline-success"><i class="fas fa-plus"> Add Filter Word </i></a>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for filterword in filterwords_list %}
+                    <tr>
+                        <td>{{ filterword.word }}</td>
+                        <td>{{ filterword.wordalias }}</td>
+                        <td>{{ filterword.subwordalias }}</td>
+                        <td>{{ filterword.stopword }}</td>
+                        <td>
+                            <form action="{% url 'filterwords_delete' filterword.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn"><i class="far fa-trash-alt fa-lg text-danger float-right"></i></button>
+                            </form>
+                            <a href="{% url 'filterwords_update' filterword.id %}" class="btn text-secondary px-0">
+                                <i class="far fa-edit fa-lg"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <!-- No filterwords for the client -->
+        <a href="{% url 'filterwords_insert' clientid %}"class="btn btn-outline-success"><i class="fas fa-plus"> Add Filter Word </i></a>
+        <br>
+        <p>Filter Word with client ID {{ clientid }} does not exist.</p>
+    {% endif %}
+{% endblock content %}

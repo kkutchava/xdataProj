@@ -1,0 +1,28 @@
+{% extends  "xdata/base.html"%}
+
+{% block content %}
+<h1>Filter Words List</h1>
+<br>
+
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Word</td>
+            <td>Word Alias</td>
+            <td>Sub-Word Alias</td>
+            <td>Stop Word</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for filterwords in filterwords_list %}
+            <tr>
+                <td>{{ filterwords.word }}</td>
+                <td>{{ filterwords.wordalias }}</td>
+                <td>{{ filterwords.subwordalias }}</td>
+                <td>{{ filterwords.stopword }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

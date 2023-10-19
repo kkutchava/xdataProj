@@ -1,7 +1,14 @@
 from django.shortcuts import render, redirect
-from .forms import ClientsForm, NotificationsForm, FilterwordsForm
+from .forms import ClientsForm, NotificationsForm, FilterwordsForm, CSVUploadForm
 from .models import Filterwords, Clients, Articles, Notifications, Sites
 from django.shortcuts import get_object_or_404
+import csv
+import io
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import pandas as pd
+
+
 
 #from django.http import Http404
 
@@ -152,6 +159,32 @@ def filterwords_delete(request, id=0):
     filterword = Filterwords.objects.get(pk=id)
     filterword.delete()
     return redirect('/clients/list')
+
+
+# CSV UPLOAD HANDLING
+
+def preview_csv(request):
+    if request.method == 'POST':
+        form = CSVUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            csv_file = request.FILES['csv_file']
+            data = pd.read_csv(csv_file)
+
+            # Save each row from the CSV to the database
+            for index, row in data.iterrows():
+                csv_data_instance = Filterwords(
+                    clientid=row['clientid'],
+                    word=row['word'],
+                    wordalias=row['wordalias'],
+                    subwordalias=row['subwordalias'],
+                    stopword=row['stopword']
+                )
+                csv_data_instance.save()
+
+            return render(request, 'xdata/preview_csv.html', {'data': data})
+    else:
+        form = CSVUploadForm()
+    return render(request, 'xdata/upload_csv.html', {'form': form})
 
 #NOTIFICATIONS CRUD
 

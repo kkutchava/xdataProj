@@ -5,6 +5,8 @@ from django.core.files.base import File
 from django.db.models.base import Model
 from django.forms.utils import ErrorList
 from .models import Clients, Notifications, Filterwords, Sites, Articles
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Field, ButtonHolder, Submit
 
 class ClientsForm(forms.ModelForm):
     #to make integer field appear as a toggle form
@@ -94,3 +96,12 @@ class FilterwordsForm(forms.ModelForm):
             Filterword.save()
 
         return Filterword
+
+
+# form for CSV upload
+class CSVUploadForm(forms.ModelForm):
+    csv_file = forms.FileField()
+
+    class Meta:
+        model = Filterwords
+        fields = []

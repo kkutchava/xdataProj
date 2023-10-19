@@ -11,6 +11,13 @@
             <td>Word Alias</td>
             <td>Sub-Word Alias</td>
             <td>Stop Word</td>
+            <td>
+                <form action="{% url 'upload_csv' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Upload via CSV</button>
+                </form>
+            </td>
         </tr>
     </thead>
     <tbody>

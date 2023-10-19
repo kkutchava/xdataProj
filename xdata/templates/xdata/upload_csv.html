@@ -1,0 +1,51 @@
+{% extends "xdata/base.html" %}
+
+{% block content %}
+<style>
+    /* CSS for the CSV upload form */
+    .csv-upload {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f4f4;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        text-align: center; /* Center the form content */
+    }
+
+    .csv-upload h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #007BFF; /* Change the heading color */
+    }
+
+    .csv-upload form {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center form elements horizontally */
+    }
+
+    .csv-upload button {
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .csv-upload button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="csv-upload">
+    <h2>Upload CSV</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload CSV</button>
+    </form>
+</div>
+{% endblock content %}

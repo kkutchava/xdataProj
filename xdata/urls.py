@@ -15,7 +15,9 @@ urlpatterns = [
     path('filterwords/insert/<int:clientid>/', views.filterwords_insert, name='filterwords_insert'), # GET & POST for filterwords INSERT
     path('filterwords/update/<int:filterword_id>/', views.filterwords_update, name='filterwords_update'),# GET & POST for filterwords UPDATE
     path('filterwords/delete/<int:id>/', views.filterwords_delete, name='filterwords_delete'), # GET & POST for filterwords DELETE
-
+    #for CSV import
+    path('filterwords/upload/', views.preview_csv, name='upload_csv'),
+    
     #NOTIFICATIONS
     path('notifications/', views.notifications_list, name='notifications_read'), #GET for notifications READ
     path('notifications/<int:clientid>/', views.notifications_list, name='notifications_read_id'), #GET for notifications READ
